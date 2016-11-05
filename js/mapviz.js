@@ -1,6 +1,7 @@
 var focus, map;
 
-window.cityCircles = [];
+window.supplyCircles = [];
+window.patientCircles = [];
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -42,23 +43,35 @@ function initMap() {
       icon: icons[feature.type].icon,
       map: map
     });
-    marker.addListener("click", function(){ 
-    infowindow.open(map, marker);
-//    alert(feature.position);
-    
+    marker.addListener("click", function() {
+      infowindow.open(map, marker);
+      //    alert(feature.position);
+
     });
-    
-    var cityCircle = new google.maps.Circle({
-        strokeColor: '#FF0000',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#FF0000',
-        fillOpacity: 0.35,
-        map: map,
-        center: feature.position,
-        radius: 100 // TO DO
-      });
-    window.cityCircles.push(cityCircle);
+
+    var supplyCircle = new google.maps.Circle({
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35,
+      map: map,
+      center: feature.position,
+      radius: 80 // TO DO
+    });
+    window.supplyCircles.push(supplyCircle);
+
+    var patientCircle = new google.maps.Circle({
+      strokeColor: '#6199d8',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#6199d8',
+      fillOpacity: 0.35,
+      map: map,
+      center: feature.position,
+      radius: 100 // TO DO
+    });
+    window.patientCircles.push(patientCircle);
   }
 
   var features = [{
@@ -84,25 +97,19 @@ function initMap() {
   for (var i = 0, feature; feature = features[i]; i++) {
     addMarker(feature);
   }
-  
-
-  marker.addListener('click', function() {
-    infowindow.open(map, marker);
-  });
-  
 }
 
-function toggleCityCircle() {
-	window.cityCircles.forEach(function(cityCircle){
-  	cityCircle.setMap(cityCircle.getMap() ? null : map);
+
+function toggleSupplyCircle() {
+  window.supplyCircles.forEach(function(supplyCircle) {
+    supplyCircle.setMap(supplyCircle.getMap() ? null : map);
   });
 }
 
+function togglePatientCircle() {
+  window.patientCircles.forEach(function(patientCircle) {
+    patientCircle.setMap(patientCircle.getMap() ? null : map);
+  });
 
-// figure out a way to pull data points for these??
-function getPoints() {
-  return [
-    new google.maps.LatLng(38.642551, -90.315368),
-
-  ];
 }
+
