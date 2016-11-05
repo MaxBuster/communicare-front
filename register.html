@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+	<header>
+		<title>CommuniCare</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+		<script type="text/javascript">
+		function register_user() {
+			var post_request = $.post(
+				"https://archhack2016.herokuapp.com/organizations", 
+				{
+					name: $('#name').val(), 
+					username: $('#username').val(), 
+					password: $('#password').val()
+				}
+			);
+			post_request.done(function() {
+				window.location.assign("login.html");
+			});
+			post_request.fail(function() {
+				alert("Registration failed, try a different username");
+			});
+		}
+		</script>
+	</header>
+
+	<body>
+		<h1>Communicare</h1>
+
+		Organization Name: <input type="text" name="name" id="name"/>
+		</br>
+		Username: <input type="text" name="username" id="username"/>
+		</br>
+		Password: <input type="password" name="password" id="password" />
+		</br>
+		<input type="submit" value="Submit" onclick="register_user();">
+	</body>
+
+</html>
