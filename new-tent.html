@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
+    <script src="js/locationpicker.jquery.js"></script>
+</head>
+<body>
+<h1>It's time to add another awesome service for our community!</h1>
+<label>
+    Tent Name:
+    <input type="text">
+</label><br><br>
+<label>
+    Organization:
+    <input type="text">
+</label><br><br>
+<div id="somecomponent" style="width: 500px; height: 400px;"></div>
+<script>
+    $('#somecomponent').locationpicker({
+        zoom:17,
+        location: {
+            latitude: 38.648434,
+            longitude: -90.311079
+        },
+        radius: 10,
+        inputBinding: {
+            latitudeInput: $('#us6-lat'),
+            longitudeInput: $('#us6-lon'),
+            radiusInput: $('#us6-radius'),
+            locationNameInput: $('#us6-address')
+        },
+        mapTypeId: 'satellite',
+        markerInCenter: true,
+        enableAutocomplete: true
+    });
+</script>
+</body>
+</html>
