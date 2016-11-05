@@ -14,7 +14,7 @@ function login_user() {
 	post_request.done(function(data) {
 		localStorage.setItem("uid", data["uid"]);
 		localStorage.setItem("sip", data["sip"]);
-		window.location.assign("tents.html"); // Redirect to tents page
+		window.location.assign("mapviz.html"); // Redirect to tents page
 	});
 	// Callback on post request failure
 	post_request.fail(function() {
