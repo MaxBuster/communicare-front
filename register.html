@@ -2,31 +2,37 @@
 <html>
 
 	<header>
-		<title>CommuniCare</title>
+		<title>Register New Organization</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
 		<script type="text/javascript">
-		function register_user() {
-			var post_request = $.post(
-				"https://archhack2016.herokuapp.com/organizations", 
-				{
-					name: $('#name').val(), 
-					username: $('#username').val(), 
-					password: $('#password').val()
-				}
-			);
-			post_request.done(function() {
-				window.location.assign("login.html");
-			});
-			post_request.fail(function() {
-				alert("Registration failed, try a different username");
-			});
-		}
-		</script>
+			/**
+				posts org details to the database
+				redirects to login on success, stays on the page on failure
+			*/
+			function register_user() {
+				var post_request = $.post(
+					"https://archhack2016.herokuapp.com/organizations", // Url to post org details to
+					{
+						name: $('#name').val(), 
+						username: $('#username').val(), 
+						password: $('#password').val()
+					}
+				);
+				// Callback on post request success
+				post_request.done(function() {
+					window.location.assign("login.html"); // Redirect to login
+				});
+				// Callback on post request failure
+				post_request.fail(function() {
+					alert("Registration failed, try a different username");
+				});
+			}
+			</script>
 	</header>
 
 	<body>
-		<h1>Communicare</h1>
+		<h1>Register New Organization</h1>
 
 		Organization Name: <input type="text" name="name" id="name"/>
 		</br>
