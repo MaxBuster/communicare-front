@@ -31,6 +31,27 @@ function makeMap(data) {
   }
 }
 
+function toggleMarker(service) {
+  var post_request = $.get(
+    "https://archhack2016.herokuapp.com/tents",
+    {
+      services:{$regex:service,$options:"i"}
+    }
+  );
+  // Callback on post request success
+  post_request.done(function(data) {
+    console.log("Received Data");
+    console.log(data);
+    for(var key in data) {
+      markers[data[key].id].setMap(!document.getElementById(service + "_box").checked ? null : map);
+    }
+  });
+  // Callback on post request failure
+  post_request.fail(function() {
+    console.log("Request failed");
+  });
+}
+
 function toggleCircle(name) {
    var post_request = $.get(
     "https://archhack2016.herokuapp.com/stock",
