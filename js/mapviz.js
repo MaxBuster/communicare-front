@@ -31,6 +31,27 @@ function makeMap(data) {
   }
 }
 
+function toggleMarker(service) {
+  var post_request = $.get(
+    "https://archhack2016.herokuapp.com/tents",
+    {
+      services:{$regex:service,$options:"i"}
+    }
+  );
+  // Callback on post request success
+  post_request.done(function(data) {
+    console.log("Received Data");
+    console.log(data);
+    for(var key in data) {
+      markers[data[key].id].setMap(!document.getElementById(service + "_box").checked ? null : map);
+    }
+  });
+  // Callback on post request failure
+  post_request.fail(function() {
+    console.log("Request failed");
+  });
+}
+
 function toggleCircle(name) {
    var post_request = $.get(
     "https://archhack2016.herokuapp.com/stock",
@@ -40,6 +61,12 @@ function toggleCircle(name) {
   post_request.done(function(data) {
     console.log("Received Data");
     console.log(data[0]);
+    var max_supply = 0;
+    for (var i = 0, feature; feature = data[i]; i++) {
+      if(feature.quantity > max_supply) {
+        max_supply = feature.quantity;
+      }
+    }
     for (var i = 0, feature; feature = data[i]; i++) {
       if(!window.circles[feature.id]){
         var colors = {painkiller:"red", water:"blue", diaper:"green", icepack:"purple", food:"orange"};
@@ -51,7 +78,7 @@ function toggleCircle(name) {
           fillOpacity: 0.35,
           map: null,
           center: markers[feature.tentId].position,
-          radius: feature.quantity // TO DO
+          radius: (100/max_supply)*feature.quantity
         });
         window.circles[feature.id] = circle;
       }
