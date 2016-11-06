@@ -61,6 +61,12 @@ function toggleCircle(name) {
   post_request.done(function(data) {
     console.log("Received Data");
     console.log(data[0]);
+    var max_supply = 0;
+    for (var i = 0, feature; feature = data[i]; i++) {
+      if(feature.quantity > max_supply) {
+        max_supply = feature.quantity;
+      }
+    }
     for (var i = 0, feature; feature = data[i]; i++) {
       if(!window.circles[feature.id]){
         var colors = {painkiller:"red", water:"blue", diaper:"green", icepack:"purple", food:"orange"};
@@ -72,7 +78,7 @@ function toggleCircle(name) {
           fillOpacity: 0.35,
           map: null,
           center: markers[feature.tentId].position,
-          radius: feature.quantity // TO DO
+          radius: (100/max_supply)*feature.quantity
         });
         window.circles[feature.id] = circle;
       }
