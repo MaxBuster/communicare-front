@@ -6,7 +6,7 @@
 <script src="js/mapviz.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script async defer  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_hAD2Ep735J6QzQJ6E8R1knuyhcOqpSM&libraries=visualization&callback=initMap"></script>
+<script async defer  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_hAD2Ep735J6QzQJ6E8R1knuyhcOqpSM&libraries=visualization&callback=initMap"></script>s
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="./css/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
@@ -58,16 +58,20 @@ body, html {
 
 <div id="registration_container">
   <div class="form-group">
-    <label for="water_box">Water Supplies:</label>
-    <input type="checkbox" id="water_box" onclick="toggleCircle('water');">
-    <label for="food_box">Food Supplies:</label>
-    <input type="checkbox" id="food_box" onclick="toggleCircle('food');">
-    <label for="painkiller_box">Painkiller Supplies:</label>
-    <input type="checkbox" id="painkiller_box" onclick="toggleCircle('painkiller');">
-    <label for="diaper_box">Diaper Supplies:</label>
-    <input type="checkbox" id="diaper_box" onclick="toggleCircle('diaper');">
-    <label for="icepack_box">Icepack Supplies:</label>
-    <input type="checkbox" id="icepack_box" onclick="toggleCircle('icepack');">
+  <label for ="water_box"> Water Supplies:</label>
+  <input type="checkbox" id="water_box" onclick="toggleCircle('water');"></br>
+  <label for ="food_box"> Food Supplies:</label>
+	<input type="checkbox" id="food_box" onclick="toggleCircle('food');"></br>
+  <label for ="painkiller_box"> Painkiller Supplies:</label>
+	<input type="checkbox" id="painkiller_box" onclick="toggleCircle('painkiller');"></br>
+  <label for ="diaper_box"> Diaper Supplies:</label>
+  <input type="checkbox" id="diaper_box" onclick="toggleCircle('diaper');"></br>
+  <label for ="icepack_box"> Ice Pack Supplies:</label>
+  <input type="checkbox" id="icepack_box" onclick="toggleCircle('icepack');"></br>
+  <label for ="first aid_box"> First Aid Services:</label>
+	<input type="checkbox" id="first aid_box" onclick="toggleMarker('first aid');" checked></br>
+  <label for ="aed_box"> AED Services:</label>
+  <input type="checkbox" id="aed_box" onclick="toggleMarker('aed');" checked></br>
   </div>
 </div>
 
