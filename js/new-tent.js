@@ -1,15 +1,32 @@
 var services = [];
 var servicesUpper = [];
 var cLoc;
+var organizations = {};
+
+var post_request = $.get(
+    "https://archhack2016.herokuapp.com/organizations"
+);
+// Callback on post request success
+post_request.done(function(data) {
+    for(var key in data) {
+        $('#orgList').append("<option value='" + data[key].name + "'>");
+        organizations[data[key].name] = data[key].id;
+    }
+});
+// Callback on post request failure
+post_request.fail(function() {
+    alert("Failed to retrieve organizations.");
+});
 
 function submit() {
-    var orgId = '69b00a4fff6cb87b';
+    var orgId = organizations[document.getElementById('organization').value];
     var name = $('#name').val();
     var type = $('#type').val();
     var lat = cLoc.latitude;
     var long = cLoc.longitude;
 
     if(orgId.length && name.length && type.length) {
+
         var payload = {
             // TODO: Fix orgId!?!?!
             orgId: orgId,
