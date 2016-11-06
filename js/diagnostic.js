@@ -1,3 +1,4 @@
+localStorage.setItem("tent_id", "80fb0d0a6013bac5");
 // If user is not logged in redirect to login
 if (localStorage.getItem("sip") === null) {
 	window.location.assign("login.html"); // Redirect to login
@@ -19,6 +20,7 @@ var post_request = $.get(
 
 // Callback on post request success
 post_request.done(function(data) {
+	alert(data);
 	// TODO add all data to the screen
 });
 // Callback on post request failure
