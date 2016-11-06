@@ -91,9 +91,7 @@ function addMarker(feature) {
   }
   var contentString = 
     '<div id="content">' +
-      '<div id="siteNotice">' +
-      '</div>' +
-      '<h1 id="firstHeading" class="firstHeading">' + feature.name + '</h1>' +
+      '<a href="./tent-details.html?id=' + feature.id + '"><h1 id="firstHeading" class="firstHeading">' + feature.name + '</h1></a>' +
       '<div id="bodyContent">' +
       '<p><b>Services:</b></p>' + service_list +
       '</div>' +
