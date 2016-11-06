@@ -42,7 +42,7 @@ body, html {
 
     <li class="w3-left" style="width:20% !important"><a href="./"><font color=#f6eceb>HOME</font></a></li>
     <li class="w3-left" style="width:20% !important"><a href="./mapviz.html"><font color=#f6eceb>MAP</font></a></li>
-    <li class="w3-left" style="width:20% !important"><a href="./newTent.html"><font color=#f6eceb>NEW LOCATION</font></a></li>
+    <li class="w3-left" style="width:20% !important"><a href="./new-tent.html"><font color=#f6eceb>NEW LOCATION</font></a></li>
     <li class="w3-left" style="width:20% !important"><a href="./register.html"><font color=#f6eceb>REGISTER</font></a></li>
     <li class="w3-left" style="width:20% !important"><a href="./login.html"><font color=#f6eceb>SIGN IN</font></a></li>
   </ul>
