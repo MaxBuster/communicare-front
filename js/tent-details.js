@@ -38,6 +38,7 @@ function add_info(data) {
 function add_actions(data) {
 	var user_id = localStorage.getItem("uid");
 	if (user_id === data["orgId"]) {
+		document.getElementById("add_new_stock").innerHTML = '<h3>Add New Stock</h3>Name: <input type="text" class="form-control" id="stock_name" /> Initial Quantity: <input type="text" class="form-control" id="initial_quantity" /><br> <input type="submit" class="form-control" value="Submit" onclick="add_new_stock();">';
 		return true;
 	} else {
 		return false;
@@ -54,7 +55,7 @@ function get_stock(actions) {
 	);
 	// Callback on get request success
 	get_request.done(function(data) {
-		var stock = "";
+		var stock = "<h3>Supplies</h3>";
 		for (i=0; i<data.length; i++) {
 			stock += "<p>"+data[i]["name"]+": "+data[i]["quantity"]+"</p>";
 			if (actions) {
@@ -112,6 +113,30 @@ function use_stock(stock_id, quantity) {
 	// Callback on post request failure
 	post_request.fail(function() {
 		alert("Stock change failed");
+	});
+}
+
+function add_new_stock() {
+	var stock_name = document.getElementById("stock_name").value;
+	var quantity = document.getElementById("initial_quantity").value;
+	var team_id = getURLParameter("id");
+	var org_id = localStorage.getItem("uid");
+	var post_request = $.post(
+		"https://archhack2016.herokuapp.com/stock", // Url to post org details to
+		{
+			orgId: org_id,
+			tentId: team_id,
+			name: stock_name,
+			quantity: quantity
+		}
+	);
+	// Callback on post request success
+	post_request.done(function() {
+		location.reload();
+	});
+	// Callback on post request failure
+	post_request.fail(function() {
+		alert("Stock add failed");
 	});
 }
 
