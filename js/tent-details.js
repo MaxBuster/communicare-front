@@ -59,8 +59,8 @@ function get_stock(actions) {
 			stock += "<p>"+data[i]["name"]+": "+data[i]["quantity"]+"</p>";
 			if (actions) {
 				stock += '<input type="text" id="' + data[i]["id"] + '">';
-				stock += '<input type="submit" value="-" onclick="use_stock(\'' + data[i]["id"] + '\');">'; 
-				stock += '<input type="submit" value="+" onclick="add_stock(\'' + data[i]["id"] + '\');"><br>';
+				stock += '<input type="submit" value="-" onclick="use_stock(\'' + data[i]["id"] + '\', ' + data[i]["quantity"]+');">'; 
+				stock += '<input type="submit" value="+" onclick="add_stock(\'' + data[i]["id"] + '\', ' + data[i]["quantity"]+');"><br>';
 			} else {
 				stock += "<br>";
 			}
@@ -75,15 +75,44 @@ function get_stock(actions) {
 }
 
 // ------------ Update stock ---------------- //
-function add_stock(stock_id) {
-	var amount = $("#" + stock_id).val();
-	console.log(amount);
-	// TODO insert/add to db
+function add_stock(stock_id, quantity) {
+	var amount = document.getElementById(stock_id).value;
+	var total = quantity+amount;
+	var post_request = $.post(
+		"https://archhack2016.herokuapp.com/stock", // Url to post org details to
+		{
+			id: stock_id,
+			quantity: total
+		}
+	);
+	// Callback on post request success
+	post_request.done(function() {
+		location.reload();
+	});
+	// Callback on post request failure
+	post_request.fail(function() {
+		alert("Stock change failed");
+	});
 }
 
-function use_stock(stock_id) {
-	console.log(stock_id);
-	// TODO remove from db
+function use_stock(stock_id, quantity) {
+	var amount = document.getElementById(stock_id).value;
+	var total = quantity-amount;
+	var post_request = $.post(
+		"https://archhack2016.herokuapp.com/stock", // Url to post org details to
+		{
+			id: stock_id,
+			quantity: total
+		}
+	);
+	// Callback on post request success
+	post_request.done(function() {
+		location.reload();
+	});
+	// Callback on post request failure
+	post_request.fail(function() {
+		alert("Stock change failed");
+	});
 }
 
 // ------------ Utils ---------------- //
