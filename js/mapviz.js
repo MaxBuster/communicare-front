@@ -76,13 +76,22 @@ function initMap() {
 
   var features = [{
     position: new google.maps.LatLng(38.649502, -90.311161),
-    type: 'info'
+    type: 'tent'
   }, {
     position: new google.maps.LatLng(38.648215, -90.311407),
     type: 'tent'
+  },{
+    position: new google.maps.LatLng(38.640215, -90.313407),
+    type: 'tent'
+  },{
+    position: new google.maps.LatLng(38.647215, -90.311607),
+    type: 'tent'
   }, {
-    position: new google.maps.LatLng(38.648208, -90.309035),
-    type: 'hospital'
+    position: new google.maps.LatLng(38.647215, -90.312007),
+    type: 'tent'
+  },{
+    position: new google.maps.LatLng(38.649808, -90.309035),
+    type: 'tent'
   }, {
     position: new google.maps.LatLng(38.649096, -90.309445),
     type: 'tent'
@@ -91,6 +100,9 @@ function initMap() {
     type: 'tent'
   }, {
     position: new google.maps.LatLng(38.648756, -90.311326),
+    type: 'tent'
+  }, {
+    position: new google.maps.LatLng(38.650215, -90.311411),
     type: 'tent'
   }];
 
