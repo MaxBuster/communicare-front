@@ -56,22 +56,26 @@ body, html {
 
 <div id="map"></div></br>
 
-<div id="registration_container">
-  <div class="form-group">
-  <label for ="water_box"> Water Supplies:</label>
-  <input type="checkbox" id="water_box" onclick="toggleCircle('water');"></br>
-  <label for ="food_box"> Food Supplies:</label>
-	<input type="checkbox" id="food_box" onclick="toggleCircle('food');"></br>
-  <label for ="painkiller_box"> Painkiller Supplies:</label>
-	<input type="checkbox" id="painkiller_box" onclick="toggleCircle('painkiller');"></br>
-  <label for ="diaper_box"> Diaper Supplies:</label>
-  <input type="checkbox" id="diaper_box" onclick="toggleCircle('diaper');"></br>
-  <label for ="icepack_box"> Ice Pack Supplies:</label>
-  <input type="checkbox" id="icepack_box" onclick="toggleCircle('icepack');"></br>
-  <label for ="first aid_box"> First Aid Services:</label>
-	<input type="checkbox" id="first aid_box" onclick="toggleMarker('first aid');" checked></br>
-  <label for ="aed_box"> AED Services:</label>
-  <input type="checkbox" id="aed_box" onclick="toggleMarker('aed');" checked></br>
+<div id="registration_container" class="form-group">
+  <div style="width: 45%;display: inline-block;">
+    <h2>Supplies</h2>
+    <label for ="water_box"> Water Supplies:</label>
+    <input type="checkbox" id="water_box" onclick="toggleCircle('water');"></br>
+    <label for ="food_box"> Food Supplies:</label>
+      <input type="checkbox" id="food_box" onclick="toggleCircle('food');"></br>
+    <label for ="painkiller_box"> Painkiller Supplies:</label>
+      <input type="checkbox" id="painkiller_box" onclick="toggleCircle('painkiller');"></br>
+    <label for ="diaper_box"> Diaper Supplies:</label>
+    <input type="checkbox" id="diaper_box" onclick="toggleCircle('diaper');"></br>
+    <label for ="icepack_box"> Ice Pack Supplies:</label>
+    <input type="checkbox" id="icepack_box" onclick="toggleCircle('icepack');"></br>
+  </div>
+  <div style="width: 45%;display: inline-block; vertical-align:top; height: 100%;">
+    <h2>Services</h2>
+    <label for ="first aid_box"> First Aid Services:</label>
+    <input type="checkbox" id="first aid_box" onclick="toggleMarker('first aid');" checked></br>
+    <label for ="aed_box"> AED Services:</label>
+    <input type="checkbox" id="aed_box" onclick="toggleMarker('aed');" checked></br>
   </div>
 </div>
 
