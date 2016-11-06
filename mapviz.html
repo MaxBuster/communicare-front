@@ -1,12 +1,11 @@
 
 <!-- Replace the value of the key parameter with your own API key. -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script async defer  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_hAD2Ep735J6QzQJ6E8R1knuyhcOqpSM&libraries=visualization&callback=initMap"></script>
 <script src="js/mapviz.js"></script>
 <div id="floating-panel">
-  <button onclick="toggleSupplyCircle();">Toggle Supplies</button>
-</div>
-<div id="floating-panel">
-<button onclick="togglePatientCircle();">Toggle Patients</button>
+<button onclick="toggleCircle('water');">View Water Supplies</button>
+<button onclick="toggleCircle('food');">View Food Supplies</button>
 </div>
 <div id="map"></div>
 <link rel="stylesheet" type="text/css" href="./css/mapviz.css">

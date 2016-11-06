@@ -1,28 +1,35 @@
 var focus, map;
 
-window.supplyCircles = [];
-window.patientCircles = [];
+
+window.circles = {};
+window.markers = {};
 
 function initMap() {
+  var post_request = $.get(
+    "https://archhack2016.herokuapp.com/tents"
+  );
+  // Callback on post request success
+  post_request.done(function(data) {
+    console.log("Received Data");
+    console.log(data[0]);
+    makeMap(data);
+  });
+  // Callback on post request failure
+  post_request.fail(function() {
+    console.log("Request failed");
+  });
+
+
+}
+
+function makeMap(data) {
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 17,
     center: focus = new google.maps.LatLng(38.648763, -90.310618),
     mapTypeId: 'satellite'
   });
 
-  var contentString = '<div id="content">' +
-    '<div id="siteNotice">' +
-    '</div>' +
-    '<h1 id="firstHeading" class="firstHeading">Tent A</h1>' +
-    '<div id="bodyContent">' +
-    '<p><b>Supplies:</b></p>' + '<p>Water: 200</p>' + '<p>Blankets: 50</p>' +
-    '<p>Antibiotics: 20</p>' +
-    '</div>' +
-    '</div>';
-
-  var infowindow = new google.maps.InfoWindow({
-    content: contentString
-  });
+  
 
   var iconBase = 'http://maps.google.com/mapfiles/kml/pal3/';
   var icons = {
@@ -39,89 +46,66 @@ function initMap() {
 
   function addMarker(feature) {
     var marker = new google.maps.Marker({
-      position: feature.position,
+      position: new google.maps.LatLng(feature.latitude, feature.longitude),
       icon: icons[feature.type].icon,
       map: map
     });
+    
+    var service_list = "";
+    for (var child in feature.services) {
+      service_list += '<p>' + feature.services[child] + '</p>';
+    }
+    var contentString = 
+      '<div id="content">' +
+        '<div id="siteNotice">' +
+        '</div>' +
+        '<h1 id="firstHeading" class="firstHeading">' + feature.name + '</h1>' +
+        '<div id="bodyContent">' +
+        '<p><b>Services:</b></p>' + service_list +
+        '</div>' +
+      '</div>';
+
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
     marker.addListener("click", function() {
       infowindow.open(map, marker);
-      //    alert(feature.position);
-
+      // TODO open new window instead of opening popup?
     });
 
-    var supplyCircle = new google.maps.Circle({
-      strokeColor: '#FF0000',
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillColor: '#FF0000',
-      fillOpacity: 0.35,
-      map: map,
-      center: feature.position,
-      radius: 80 // TO DO
-    });
-    window.supplyCircles.push(supplyCircle);
-
-    var patientCircle = new google.maps.Circle({
-      strokeColor: '#6199d8',
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillColor: '#6199d8',
-      fillOpacity: 0.35,
-      map: map,
-      center: feature.position,
-      radius: 100 // TO DO
-    });
-    window.patientCircles.push(patientCircle);
+    window.markers[feature.id] = marker;
   }
 
-  var features = [{
-    position: new google.maps.LatLng(38.649502, -90.311161),
-    type: 'tent'
-  }, {
-    position: new google.maps.LatLng(38.648215, -90.311407),
-    type: 'tent'
-  },{
-    position: new google.maps.LatLng(38.640215, -90.313407),
-    type: 'tent'
-  },{
-    position: new google.maps.LatLng(38.647215, -90.311607),
-    type: 'tent'
-  }, {
-    position: new google.maps.LatLng(38.647215, -90.312007),
-    type: 'tent'
-  },{
-    position: new google.maps.LatLng(38.649808, -90.309035),
-    type: 'tent'
-  }, {
-    position: new google.maps.LatLng(38.649096, -90.309445),
-    type: 'tent'
-  }, {
-    position: new google.maps.LatLng(38.649541, -90.311933),
-    type: 'tent'
-  }, {
-    position: new google.maps.LatLng(38.648756, -90.311326),
-    type: 'tent'
-  }, {
-    position: new google.maps.LatLng(38.650215, -90.311411),
-    type: 'tent'
-  }];
-
-  for (var i = 0, feature; feature = features[i]; i++) {
+for (var i = 0, feature; feature = data[i]; i++) {
     addMarker(feature);
   }
 }
 
-
-function toggleSupplyCircle() {
-  window.supplyCircles.forEach(function(supplyCircle) {
-    supplyCircle.setMap(supplyCircle.getMap() ? null : map);
+function toggleCircle(name) {
+   var post_request = $.get(
+    "https://archhack2016.herokuapp.com/stock",
+    {name:name}
+  );
+  // Callback on post request success
+  post_request.done(function(data) {
+    console.log("Received Data");
+    console.log(data[0]);
+    for (var i = 0, feature; feature = data[i]; i++) {
+      var circle = new google.maps.Circle({
+        strokeColor: '#6199d8',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#6199d8',
+        fillOpacity: 0.35,
+        map: map,
+        center: markers[feature.tentId].position,
+        radius: feature.quantity // TO DO
+      });
+      window.circles[feature.id] = circle;
+    }
+  });
+  // Callback on post request failure
+  post_request.fail(function() {
+    console.log("Request failed");
   });
 }
-
-function togglePatientCircle() {
-  window.patientCircles.forEach(function(patientCircle) {
-    patientCircle.setMap(patientCircle.getMap() ? null : map);
-  });
-
-}
-
