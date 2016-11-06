@@ -42,11 +42,12 @@ function toggleCircle(name) {
     console.log(data[0]);
     for (var i = 0, feature; feature = data[i]; i++) {
       if(!window.circles[feature.id]){
+        var colors = {painkiller:"red", water:"blue", diaper:"green", icepack:"purple", food:"orange"};
         var circle = new google.maps.Circle({
-          strokeColor: '#6199d8',
+          strokeColor: colors[name],
           strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: '#6199d8',
+          strokeWeight: 1,
+          fillColor: colors[name],
           fillOpacity: 0.35,
           map: null,
           center: markers[feature.tentId].position,
@@ -54,7 +55,8 @@ function toggleCircle(name) {
         });
         window.circles[feature.id] = circle;
       }
-      window.circles[feature.id].setMap(window.circles[feature.id].getMap() ? null : map);
+      console.log(!$("#" + name + "_box").checked);
+      window.circles[feature.id].setMap(!document.getElementById(name + "_box").checked ? null : map);
     }
   });
   // Callback on post request failure
