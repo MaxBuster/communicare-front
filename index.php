@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <title>CommuniCare</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="js/login.js"></script>
+<script src="js/logout.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="./css/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
@@ -12,7 +15,7 @@ body, html {
 .bgimg {
     background-position: center;
     background-size: cover;
-    background-image: url("./img/front.jpg");
+    background-image: url("./img/home banner.jpg");
     opacity: 0.65;
     min-height: 80%;
     max-width: 100%;
@@ -38,13 +41,21 @@ body, html {
 
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
-  <ul class="w3-navbar w3-center w3-padding">
+  <ul class="w3-navbar w3-center w3-padding" id="menu-bar">
 
     <li class="w3-left" style="width:20% !important"><a href="./"><font color=#f6eceb>HOME</font></a></li>
+    <li class="w3-left" style="width:20% !important"><a href="./#about"><font color=#f6eceb>ABOUT US</font></a></li>
     <li class="w3-left" style="width:20% !important"><a href="./mapviz.html"><font color=#f6eceb>MAP</font></a></li>
-    <li class="w3-left" style="width:20% !important"><a href="./new-tent.html"><font color=#f6eceb>NEW LOCATION</font></a></li>
-    <li class="w3-left" style="width:20% !important"><a href="./register.html"><font color=#f6eceb>REGISTER</font></a></li>
-    <li class="w3-left" style="width:20% !important"><a href="./login.html"><font color=#f6eceb>SIGN IN</font></a></li>
+
+    <script>
+      if (logged_in()) {
+        document.getElementById("menu-bar").innerHTML += '<li class="w3-left" style="width:20% !important"><a href="./new-tent.html"><font color=#f6eceb>NEW LOCATION</font></a></li>';
+        document.getElementById("menu-bar").innerHTML += '<li class="w3-left" style="width:20% !important"><a onclick="log_user_out();"><font color=#f6eceb>LOGOUT</font></a></li>';
+      } else {
+        document.getElementById("menu-bar").innerHTML += '<li class="w3-left" style="width:20% !important"><a href="./register.html"><font color=#f6eceb>REGISTER</font></a></li>';
+        document.getElementById("menu-bar").innerHTML += '<li class="w3-left" style="width:20% !important"><a href="./login.html"><font color=#f6eceb>SIGN IN</font></a></li>';
+      }
+    </script>
   </ul>
 </div>
 
@@ -65,9 +76,11 @@ body, html {
 
 <!-- About Container -->
 <div class="w3-container" id="about">
-  <div class="w3-content" style="max-width:700px">
+  <div class="w3-content">
     <h5 class="w3-center w3-padding-48"><span class=" w3-wide w3-padding-left w3-padding-right"><font color=#c64547>MISSION STATEMENT</font></span></h5>
-    <p><font color=#f6eceb>A DATA VISUALIZATION APPLICATION THAT HELPS ORGANIZE RESOURCE ALLOCATION FOR LARGE-SCALE CRISIS SITUATIONS. A <B>COMMUNICATION </B>SERVICE FOR COMMUNITIES BOTH WITHIN ADN OUTSIDE AFFECTED ZONES, AND A CONNECTING FACTOR BETWEEN HELP AND <I>THOSE WHO NEED ME.</I></font></p>
+    <p style="font-size: 24px;"><font color=#60453e>A real-time resource and disease tracking application to facilitate a clustered healthcare approach in large, temporary populations. By providing organizations with tools they need to communicate each other, <b>CommuniCare</b> helps to streamline relief efforts with a single, intuitive interface.
+</font></p>
+    <!--<p><font color=#60453e>A DATA VISUALIZATION APPLICATION THAT HELPS ORGANIZE RESOURCE ALLOCATION FOR LARGE-SCALE CRISIS SITUATIONS. A <B>COMMUNICATION </B>SERVICE FOR COMMUNITIES BOTH WITHIN AND OUTSIDE AFFECTED ZONES, AND A CONNECTING FACTOR BETWEEN HELP AND <I>THOSE WHO NEED IT.</I></font></p>-->
    
    
   </div>

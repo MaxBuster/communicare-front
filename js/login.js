@@ -21,3 +21,12 @@ function login_user() {
 		alert("Login failed, please check your credentials and try again");
 	});
 }
+
+function logged_in() {
+	var sid = localStorage.getItem("sip");
+	if (sid === null) {
+		return false;
+	} else {
+		return true;
+	}
+}
