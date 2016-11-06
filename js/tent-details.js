@@ -14,7 +14,8 @@ var get_request = $.get(
 // Callback on get request success
 get_request.done(function(data) {
 	add_info(data);
-	add_actions(data);
+	var actions = add_actions(data);
+	get_stock(actions);
 });
 // Callback on get request failure
 get_request.fail(function() {
@@ -26,9 +27,10 @@ function add_info(data) {
 	$("#tent_name").text("Tent: " + data["name"]);
 	$("#tent_type").text("Type: " + data["type"]);
 	var all_services = "Services: ";
-	for (i=0; i<data["services"].length; i++) {
+	for (i=0; i<data["services"].length-1; i++) {
 		all_services += data["services"][i] + ", ";
 	}
+	all_services += data["services"][data["services"].length-1];
 	$("#service_list").text(all_services);
 }
 
@@ -36,12 +38,14 @@ function add_info(data) {
 function add_actions(data) {
 	var user_id = localStorage.getItem("uid");
 	if (user_id === data["orgId"]) {
-		// TODO add actions
+		return true;
+	} else {
+		return false;
 	}
 }
 
 // ------------ Get tent stock ---------------- //
-function get_stock(data) {
+function get_stock(actions) {
 	var get_request = $.get(
 		"https://archhack2016.herokuapp.com/stock", 
 		{
@@ -50,7 +54,19 @@ function get_stock(data) {
 	);
 	// Callback on get request success
 	get_request.done(function(data) {
-		// TODO add each to stock list with values - name, value, field, +/- button
+		var stock = "";
+		for (i=0; i<data.length; i++) {
+			stock += "<p>"+data[i]["name"]+": "+data[i]["quantity"]+"</p>";
+			if (actions) {
+				stock += '<input type="text" id="' + data[i]["id"] + '">';
+				stock += '<input type="submit" value="-" onclick="use_stock(\'' + data[i]["id"] + '\');">'; 
+				stock += '<input type="submit" value="+" onclick="add_stock(\'' + data[i]["id"] + '\');"><br>';
+			} else {
+				stock += "<br>";
+			}
+		}
+		console.log(stock);
+		document.getElementById("stock_list").innerHTML = stock;
 	});
 	// Callback on get request failure
 	get_request.fail(function() {
@@ -59,11 +75,14 @@ function get_stock(data) {
 }
 
 // ------------ Update stock ---------------- //
-function add_stock(type, amount) {
+function add_stock(stock_id) {
+	var amount = $("#" + stock_id).val();
+	console.log(amount);
 	// TODO insert/add to db
 }
 
-function use_stock(type, amount) {
+function use_stock(stock_id) {
+	console.log(stock_id);
 	// TODO remove from db
 }
 
