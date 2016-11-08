@@ -13,7 +13,7 @@ function login_user() {
 	// Callback on post request success
 	post_request.done(function(data) {
 		localStorage.setItem("uid", data["uid"]);
-		localStorage.setItem("sip", data["sip"]);
+		localStorage.setItem("sid", data["id"]);
 		window.location.assign("mapviz.html"); // Redirect to tents page
 	});
 	// Callback on post request failure
@@ -23,7 +23,7 @@ function login_user() {
 }
 
 function logged_in() {
-	var sid = localStorage.getItem("sip");
+	var sid = localStorage.getItem("sid");
 	if (sid === null) {
 		return false;
 	} else {
